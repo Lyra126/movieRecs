@@ -1,0 +1,26 @@
+.App {
+  text-align: center;
+}
+
+
+.App-header {
+  background-color: #ffcad4;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;  
+  margin-top: 0;
+  margin-left: 400px;
+  margin-right: 100px;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+.left-section {
+  float: left;
+  margin-right: 20px; /* Adjust margin as needed */
+  margin-left: 20px;
+}
+.dropdown-container {
+  margin-bottom: 10px; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
