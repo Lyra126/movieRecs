@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  // State variables to manage the selected values of each dropdown
+  // variables to store the selected option of each dropdown
   const [language, setLanguage] = useState('Select Language');
   const [genre, setGenre] = useState('Select Genre');
   const [length, setLength] = useState('Select Length');
@@ -11,7 +11,7 @@ function App() {
 
   const [movieRecommendations, setMovieRecommendations] = useState({});
 
-  // Function to handle changes in the dropdowns
+  // updates preferences
   const handleDropdownChange = (category, value) => {
     switch (category) {
       case 'Language':
@@ -34,6 +34,7 @@ function App() {
     }
   };
 
+  // saves preferences
   const logPreferences = () => {
     console.log('Button clicked!');
     const preferences = {
@@ -57,15 +58,16 @@ function App() {
     setMovieRecommendations(preferences);
 };
 
+// displays recs
 const displayMovieRecs = () => {
   document.getElementById("MovieContainer").innerHTML = '';
   fetch("movieRecs.txt")
       .then(response => response.text())
       .then(data => {
-          // Assuming data is a string containing multiple entries
-          const entries = data.split('\n').slice(0, 5); // Take only the first 5 entries
+          // Take only the first 5 entries
+          const entries = data.split('\n').slice(0, 5); 
 
-          // Create a container element to hold the movie entries
+          // stores movies
           const container = document.getElementById("MovieContainer");
           container.style.backgroundColor = '#ffcad4';
           container.style.marginLeft = '400px';
@@ -85,15 +87,16 @@ const displayMovieRecs = () => {
                   button.textContent = `Show Details`;
                   movieDiv.textContent = `${movieObject.movieTitle}  `;
                   movieDiv.appendChild(document.createElement('br'));
-                  if(!(movieObject.poster.length == 0 || movieObject.poster.length == 3))
-                    image.src = movieObject.poster; // Set the image source to the URL of the poster
-                  image.style.width = '30%'; // Set the width of the image (adjust as needed)
+                  if(!(movieObject.poster.length == 0 || movieObject.poster.length == 3)) // check if there is a movie poster
+                    image.src = movieObject.poster; 
+                  image.style.width = '30%'; // adjusts size
                   image.style.height = '30%';
-                  movieDiv.appendChild(image);
+                  movieDiv.appendChild(image); // attaches image
+                  // extra info content
                   extraInfoDiv.textContent = `Year: ${movieObject.year}, Rated: ${movieObject.rated}, Genre: ${movieObject.genre}, Country: ${movieObject.country}, Director: ${movieObject.director}, Writers: ${movieObject.writer}, Actors: ${movieObject.actor}, Plot: ${movieObject.plot}, Awards: ${movieObject.award}, Metascore: ${movieObject.metascore}, Boxoffice: ${movieObject.boxoffice}, DVD: ${movieObject.DVD}`;
                   extraInfoDiv.style.display = 'none';
 
-                  // Toggle display of extra info on button click
+                  // button
                   button.addEventListener('click', () => {
                       extraInfoDiv.style.display = extraInfoDiv.style.display === 'none' ? 'block' : 'none';
                   });
@@ -107,18 +110,18 @@ const displayMovieRecs = () => {
               }
           });
 
-          // Append the container to the body of the document
+          // adds content to the page
           document.body.appendChild(container);
       })
       .catch(error => console.error("Error fetching movie data:", error));
 };
 
-  return (
+  return ( // dropdowns
     <div className="App">
-      <div className="left-section">
+      <div className="left-section"> 
         <h2>Choose Your Preferences: </h2>
 
-        {/* Language Dropdown */}
+        {/* Language */}
         <div className="dropdown-container">
           <label>Language: </label>
           <select value={language} onChange={(e) => handleDropdownChange('Language', e.target.value)}>
@@ -129,7 +132,7 @@ const displayMovieRecs = () => {
           </select>
         </div>
 
-        {/* Genre Dropdown */}
+        {/* Genre*/}
         <div className="dropdown-container">
           <label>Genre: </label>
           <select value={genre} onChange={(e) => handleDropdownChange('Genre', e.target.value)}>
@@ -145,7 +148,7 @@ const displayMovieRecs = () => {
           </select>
         </div>
 
-        {/* Length Dropdown */}
+        {/*length*/}
         <div className="dropdown-container">
           <label>Length: </label>
           <select value={length} onChange={(e) => handleDropdownChange('Length', e.target.value)}>
@@ -158,7 +161,7 @@ const displayMovieRecs = () => {
           </select>
         </div>
 
-        {/* Age Rating Dropdown */}
+        {/*rating */}
         <div className="dropdown-container">
           <label>Age Rating: </label>
           <select value={rating} onChange={(e) => handleDropdownChange('Rating', e.target.value)}>
@@ -170,7 +173,7 @@ const displayMovieRecs = () => {
           </select>
         </div>
 
-        {/* Year Dropdown */}
+        {/* year*/}
         <div className="dropdown-container">
           <label>Year Released: </label>
           <select value={year} onChange={(e) => handleDropdownChange('Year', e.target.value)}>
@@ -183,7 +186,7 @@ const displayMovieRecs = () => {
           </select>
         </div>
 
-        {/* Button to log preferences */}
+        {/* button to log preferences */}
         <button onClick={logPreferences}>Log Preferences</button>
         <button onClick={displayMovieRecs}>Display Movies</button>
         <div id="MovieContainer" align = "center"></div>
@@ -197,12 +200,12 @@ const displayMovieRecs = () => {
         )}
       </div>
 
-      {/* Main Section with Movie Recommendations */}
+      {/* Main Section header */}
       <div className="main-section">
         <header className="App-header">
           <h2>Here are your movie recommendations:</h2>
         </header>
-        {/* Add your movie recommendation content here */}
+        {}
       </div>
     </div>
   );
